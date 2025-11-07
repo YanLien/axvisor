@@ -64,7 +64,7 @@ jobs:
     - name: Run guests on phytiumpi
       continue-on-error: ${{ matrix.rust-toolchain == 'nightly' }}
       run: |
-        cargo install ostool --force
+        cargo install ostool --force  --version "^0.7"
         git clone https://github.com/arceos-hypervisor/axboard_test
         cd axboard_test
         ./run.sh phytiumpi-arceos
@@ -91,7 +91,7 @@ jobs:
     - name: Run guests on rk3568
       continue-on-error: ${{ matrix.rust-toolchain == 'nightly' }}
       run: |
-        cargo install ostool --force
+        cargo install ostool --force  --version "^0.7"
         git clone https://github.com/arceos-hypervisor/axboard_test
         cd axboard_test
         ./run.sh rk3568-arceos
