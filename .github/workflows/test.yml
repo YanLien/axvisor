@@ -11,14 +11,25 @@ jobs:
           # - board: phytiumpi
           #   vmconfigs: .github/workflows/vmconfigs/linux.toml,.github/workflows/vmconfigs/arceos.toml
           #   vmconfigs_name: Linux + ArceOS
-          # - board: phytiumpi
-          #   vmconfigs: .github/workflows/vmconfigs/arceos.toml
-          #   vmconfigs_name: ArceOS Only
+          - board: phytiumpi
+            vmconfigs: configs/vms/arceos-aarch64-e2000-smp1.toml
+            vmconfigs_name: ArceOS
+            vmimage_name: phytiumpi_arceos.tar.gz
+          - board: phytiumpi
+            vmconfigs: configs/vms/linux-aarch64-e2000-smp1.toml
+            vmconfigs_name: Linux
+            vmimage_name: phytiumpi_linux.tar.gz
           - board: roc-rk3568-pc
-            vmconfigs: .github/workflows/vmconfigs/arceos.toml
-            vmconfigs_name: ArceOS Only
+            vmconfigs: configs/vms/arceos-aarch64-rk3568-smp1.toml
+            vmconfigs_name: ArceOS
             # Multiple image archive names separated by commas, for example, roc-rk3568-pc_arceos.tar.gz,roc-rk3568-pc_linux.tar.gz[,...]
             vmimage_name: roc-rk3568-pc_arceos.tar.gz
+          - board: roc-rk3568-pc
+            vmconfigs: configs/vms/linux-aarch64-rk3568-smp1.toml
+            vmconfigs_name: Linux
+            # Multiple image archive names separated by commas, for example, roc-rk3568-pc_arceos.tar.gz,roc-rk3568-pc_linux.tar.gz[,...]
+            vmimage_name: roc-rk3568-pc_linux.tar.gz
+      fail-fast: false
     runs-on:
       - self-hosted
       - linux
@@ -31,20 +42,27 @@ jobs:
       - name: Install dependencies (${{ matrix.board_name }})
         run: cargo +stable install -f --git https://github.com/ZR233/ostool  ostool
 
-      - name: Download guest images
+      - name: Download images and patch VM configs
         run: |
+          echo "Downloading guest images and patching VM config files..."
           mkdir -p images
-          cd images
+          IFS=',' read -ra CONFIGS <<< "${{ matrix.vmconfigs }}"
           IFS=',' read -ra IMAGES <<< "${{ matrix.vmimage_name }}"
-          for img in "${IMAGES[@]}"; do
+          for i in "${!CONFIGS[@]}"; do
+            img="${IMAGES[$i]}"
             img=$(echo "$img" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
-            echo "Downloading $img"
-            wget https://github.com/arceos-hypervisor/axvisor-guest/releases/latest/download/$img
-            tar -xzf $img
-          done
-          cd ..
+            config="${CONFIGS[$i]}"
+            config=$(echo "$config" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+            img_name="${img%.tar.gz}"
 
-      - name: Run tests  
+            echo "Downloading $img and patching $config..."
+            wget -P ./images https://github.com/arceos-hypervisor/axvisor-guest/releases/latest/download/$img
+            tar -xzf ./images/$img -C ./images
+            sed -i 's|^kernel_path[[:space:]]*=.*|kernel_path = "./images/'"$img_name"'"|' "$config"
+            echo "Updated kernel_path in $config"
+          done
+
+      - name: Run tests
         run: |
           echo $BOARD_POWER_RESET
           export RUST_LOG=debug
