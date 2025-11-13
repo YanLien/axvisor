@@ -16,3 +16,9 @@
 [submodule "modules/axaddrspace"]
 	path = modules/axaddrspace
 	url = https://github.com/arceos-hypervisor/axaddrspace
+[submodule "modules/axdevice_base"]
+	path = modules/axdevice_base
+	url = https://github.com/arceos-hypervisor/axdevice_base
+[submodule "modules/axvisor_api"]
+	path = modules/axvisor_api
+	url = https://github.com/arceos-hypervisor/axvisor_api

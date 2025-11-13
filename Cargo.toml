@@ -57,7 +57,7 @@ axtask = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4
 axplat = {git = "https://github.com/arceos-hypervisor/axplat_crates.git", tag = "vmm-v0.3.0"}
 
 # System dependent modules provided by ArceOS-Hypervisor.
-axaddrspace = "0.1.1"
+axaddrspace = "0.1"
 axhvc = {git = "https://github.com/arceos-hypervisor/axhvc.git"}
 axruntime = {path = "modules/axruntime"}
 axvcpu = "0.1"

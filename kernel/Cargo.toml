@@ -5,7 +5,9 @@ license.workspace = true
 name = "axvisor"
 
 [features]
-ept-level-4 = ["axaddrspace/4-level-ept"]
+# Note: ept-level-4 support is now provided through dynamic page table selection in axaddrspace
+# The feature gate is no longer needed
+ept-level-4 = ["axvm/4-level-ept"]
 fs = ["axstd/fs", "axruntime/fs"]
 
 [dependencies]
