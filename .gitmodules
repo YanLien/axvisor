@@ -25,3 +25,9 @@
 [submodule "modules/axvmconfig"]
 	path = modules/axvmconfig
 	url = https://github.com/arceos-hypervisor/axvmconfig
+[submodule "modules/x86_vcpu"]
+	path = modules/x86_vcpu
+	url = https://github.com/arceos-hypervisor/x86_vcpu
+[submodule "modules/x86_vlapic"]
+	path = modules/x86_vlapic
+	url = https://github.com/arceos-hypervisor/x86_vlapic

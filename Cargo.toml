@@ -97,6 +97,8 @@ axaddrspace = { path = "modules/axaddrspace" }
 arm_vcpu = {path = "modules/arm_vcpu"}
 arm_vgic = {path = "modules/arm_vgic"}
 axvcpu = {path = "modules/axvcpu"}
+x86_vlapic = {path = "modules/x86_vlapic"}
+x86_vcpu = {path = "modules/x86_vcpu"}
 
 [patch."https://github.com/arceos-hypervisor/axdevice".axdevice]
 path = "modules/axdevice"
