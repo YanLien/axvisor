@@ -32,3 +32,6 @@
 	path = modules/x86_vlapic
 	url = https://github.com/arceos-hypervisor/x86_vlapic
 
+[submodule "arceos"]
+	path = arceos
+	url = git@github.com:arceos-hypervisor/arceos.git
