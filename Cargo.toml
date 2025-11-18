@@ -37,7 +37,7 @@ toml = "0.9"
 axvm-types = "0.1"
 
 # System dependent modules provided by ArceOS.
-axstd = {path = "arceos/ulib/axstd", features = [
+axstd = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.1", features = [
   "alloc-level-1",
   "paging",
   "irq",
@@ -45,19 +45,22 @@ axstd = {path = "arceos/ulib/axstd", features = [
   "smp", # "page-alloc-64g",
   "myplat",
   "driver-dyn",
+  # "alloc-buddy"
 ]}
 
-axalloc = {path = "arceos/modules/axalloc"}
-axconfig = {path = "arceos/modules/axconfig"}
-axdisplay = {path = "arceos/modules/axdisplay"}
-axdriver = {path = "arceos/modules/axdriver"}
-axfs = {path = "arceos/modules/axfs"}
-axhal = {path = "arceos/modules/axhal"}
-axipi = {path = "arceos/modules/axipi"}
-axlog ={path = "arceos/modules/axlog"} 
-axmm = {path = "arceos/modules/axmm"}
-axnet = {path = "arceos/modules/axnet"}
-axtask = {path = "arceos/modules/axtask"}
+axalloc = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.1"}
+axconfig = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.1"}
+axdisplay = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.1"}
+axdriver = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.1"}
+axfs = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.1"}
+axhal = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.1"}
+axipi = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.1"}
+axlog = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.1"}
+axmm = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.1"}
+axnet = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.1"}
+axtask = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.1"}
+
+
 
 axplat = {git = "https://github.com/arceos-hypervisor/axplat_crates.git", tag = "vmm-v0.3.0"}
 
@@ -110,3 +113,4 @@ path = "modules/axdevice"
 [patch."https://github.com/arceos-hypervisor/arceos"]
 axconfig = {path = "modules/axconfig"}
 axruntime = {path = "modules/axruntime"}
+axalloc = {path = "modules/axalloc"}

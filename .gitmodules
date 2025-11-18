@@ -35,3 +35,6 @@
 [submodule "arceos"]
 	path = arceos
 	url = git@github.com:arceos-hypervisor/arceos.git
+[submodule "platform/axplat-aarch64-dyn"]
+	path = platform/axplat-aarch64-dyn
+	url = https://github.com/arceos-hypervisor/axplat-aarch64-dyn.git
