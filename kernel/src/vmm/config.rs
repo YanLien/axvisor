@@ -1,3 +1,5 @@
+use std::string::ToString;
+
 use alloc::vec::Vec;
 use anyhow::bail;
 use axvm::config::AxVMCrateConfig;
@@ -26,22 +28,12 @@ fn get_guest_prelude_vmconfig() -> anyhow::Result<Vec<AxVMCrateConfig>> {
         } else {
             info!("Using static VM configs.");
         }
-        // Convert static configs to String type
-        for c in static_configs.iter() {
-            debug!("Static VM config:\n{c}");
-        }
-        gvm_raw_configs.extend(static_configs.into_iter().map(|s| s.into()));
+
+        gvm_raw_configs.extend(static_configs.into_iter().map(|s| s.to_string()));
     }
     for raw in gvm_raw_configs {
-        match AxVMCrateConfig::from_toml(&raw) {
-            Ok(cfg) => {
-                info!("Parsed VM config successfully: {cfg:?}");
-                vm_configs.push(cfg);
-            }
-            Err(e) => {
-                bail!("Failed to parse VM config: {e:?}");
-            }
-        }
+        let vm_config: AxVMCrateConfig = toml::from_str(&raw)?;
+        vm_configs.push(vm_config);
     }
 
     Ok(vm_configs)

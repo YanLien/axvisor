@@ -106,7 +106,6 @@ x86_vlapic = {path = "modules/x86_vlapic"}
 x86_vcpu = {path = "modules/x86_vcpu"}
 axvm-types = {path = "modules/axvm-types"}
 
-
 [patch."https://github.com/arceos-hypervisor/axdevice".axdevice]
 path = "modules/axdevice"
 
