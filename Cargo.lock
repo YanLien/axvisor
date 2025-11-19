@@ -1053,7 +1053,6 @@ dependencies = [
  "anyhow",
  "arm-gic-driver",
  "axaddrspace",
- "axconfig",
  "axdevice",
  "axdevice_base",
  "axerrno",
