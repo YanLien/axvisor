@@ -1,7 +1,7 @@
 // mod hvc;
 // mod ivc;
 
-// pub mod config;
+pub mod config;
 // pub mod images;
 // pub mod timer;
 // pub mod vm_list;
@@ -28,7 +28,7 @@ pub fn init() {
     axvm::enable_viretualization().unwrap();
 
     // Initialize guest VM according to config file.
-    // config::init_guest_vms();
+    config::init_guest_vms().unwrap();
 
     // Setup vcpus, spawn axtask for primary VCpu.
     info!("Setting up vcpus...");
