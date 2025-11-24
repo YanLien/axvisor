@@ -9,7 +9,7 @@ extern crate alloc;
 
 extern crate axstd as std;
 
-extern crate axruntime;
+// extern crate axruntime;
 extern crate driver;
 
 mod logo;
@@ -25,9 +25,10 @@ fn main() {
     // info!("Hardware support: {:?}", axvm::has_hardware_support());
 
     vmm::init();
-    vmm::start();
+    vmm::start_preconfigured_vms().unwrap();
 
     info!("[OK] Default guest initialized");
-
+    vmm::wait_for_all_vms_exit();
+    info!("All guest VMs exited.");
     // shell::console_init();
 }

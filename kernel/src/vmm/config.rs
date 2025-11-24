@@ -2,19 +2,14 @@ use std::string::ToString;
 
 use alloc::vec::Vec;
 use anyhow::bail;
-use axvm::config::AxVMCrateConfig;
+use axvm::{
+    AxVMConfig, CpuId, GuestPhysAddr, Vm,
+    config::{AxVCpuConfig, AxVMCrateConfig, CpuNumType, MemoryKind, VMImagesConfig},
+};
 
-pub fn init_guest_vms() -> anyhow::Result<()> {
-    let vm_configs = get_guest_prelude_vmconfig()?;
+use crate::vmm::vm_list::VMRef;
 
-    for config in vm_configs.iter() {
-        init_guest_vm(config)?;
-    }
-
-    Ok(())
-}
-
-fn get_guest_prelude_vmconfig() -> anyhow::Result<Vec<AxVMCrateConfig>> {
+pub fn get_guest_prelude_vmconfig() -> anyhow::Result<Vec<AxVMCrateConfig>> {
     let mut vm_configs = Vec::new();
     // First try to get configs from filesystem if fs feature is enabled
     let mut gvm_raw_configs = config::filesystem_vm_configs();
@@ -39,10 +34,50 @@ fn get_guest_prelude_vmconfig() -> anyhow::Result<Vec<AxVMCrateConfig>> {
     Ok(vm_configs)
 }
 
-fn init_guest_vm(config: &AxVMCrateConfig) -> anyhow::Result<()> {
-    debug!("Initializing guest VM `{}`", config.base.name);
+pub fn build_vmconfig(cfg: AxVMCrateConfig) -> anyhow::Result<AxVMConfig> {
+    let mut cpu_num = CpuNumType::Alloc(1);
+    if let Some(num) = cfg.base.cpu_num {
+        cpu_num = CpuNumType::Alloc(num);
+    }
+    if let Some(ref ids) = cfg.base.cpu_ids {
+        cpu_num = CpuNumType::Fixed(ids.iter().map(|&id| CpuId::new(id)).collect());
+    }
 
-    Ok(())
+    let image_config = super::images::load_images(&cfg)?;
+
+    let mut memory_regions = vec![];
+
+    for region in &cfg.kernel.memory_regions {
+        let mem_region = match region.map_type {
+            axvmconfig::VmMemMappingType::MapAlloc => MemoryKind::Fixed {
+                gpa: region.gpa.into(),
+                size: region.size,
+            },
+            axvmconfig::VmMemMappingType::MapIdentical => {
+                MemoryKind::Identical { size: region.size }
+            }
+            axvmconfig::VmMemMappingType::MapReserved => MemoryKind::Passthrough {
+                hpa: region.gpa.into(),
+                size: region.size,
+            },
+        };
+
+        memory_regions.push(mem_region);
+    }
+
+    Ok(AxVMConfig {
+        id: cfg.base.id,
+        name: cfg.base.name,
+        cpu_num,
+        image_config,
+        memory_regions,
+        emu_devices: cfg.devices.emu_devices,
+        pass_through_devices: cfg.devices.passthrough_devices,
+        excluded_devices: cfg.devices.excluded_devices,
+        pass_through_addresses: cfg.devices.passthrough_addresses,
+        spi_list: Vec::new(),
+        interrupt_mode: cfg.devices.interrupt_mode,
+    })
 }
 
 #[allow(clippy::module_inception, dead_code)]
