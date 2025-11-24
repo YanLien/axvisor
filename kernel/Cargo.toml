@@ -9,6 +9,7 @@ name = "axvisor"
 # The feature gate is no longer needed
 ept-level-4 = ["axvm/4-level-ept"]
 fs = ["axstd/fs", "axruntime/fs"]
+dyn-plat = ["axstd/myplat", "axstd/driver-dyn", "axruntime/driver-dyn"]
 
 [dependencies]
 bitflags.workspace = true
@@ -30,14 +31,13 @@ axstd = {workspace = true, features = [
   "irq",
   "multitask",
   "smp",
-  "myplat",
-  "driver-dyn",
 ]}
 
 # System dependent modules provided by ArceOS-Hypervisor.
 axaddrspace.workspace = true
 axhvc.workspace = true
-axruntime = {workspace = true, features = ["alloc", "irq", "paging", "smp", "driver-dyn", "multitask"]}
+axruntime = {workspace = true, features = ["alloc", "irq", "paging", "smp", "multitask"]}
+axvcpu.workspace = true
 axvm.workspace = true
 
 # System independent crates provided by ArceOS, these crates could be imported by remote url. 

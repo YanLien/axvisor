@@ -1,3 +1,5 @@
+use crate::vmm::{VCpuRef, VM, VMRef};
+use alloc::sync::{Arc, Weak};
 use std::os::arceos::modules::axtask::def_task_ext;
 
 // use crate::vmm::{VCpuRef, VMRef};

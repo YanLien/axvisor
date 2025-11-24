@@ -1,5 +1,6 @@
-#![cfg_attr(target_os = "none", no_main)]
-#![cfg(not(target_os = "none"))]
+#![cfg_attr(not(any(windows, unix)), no_main)]
+#![cfg_attr(not(any(windows, unix)), no_std)]
+#![cfg(any(windows, unix))]
 
 use anyhow::{Context, Result, anyhow};
 use chrono::Utc;
@@ -10,6 +11,7 @@ use std::path::{Path, PathBuf};
 mod cargo;
 mod clippy;
 mod ctx;
+mod image;
 mod menuconfig;
 mod tbuld;
 mod vmconfig;
@@ -36,6 +38,8 @@ enum Commands {
     Uboot(UbootArgs),
     Vmconfig,
     Menuconfig,
+    /// Guest Image management
+    Image(image::ImageArgs),
 }
 
 #[derive(Parser)]
@@ -100,7 +104,8 @@ async fn main() -> Result<()> {
         }
         Commands::Qemu(args) => {
             ctx.vmconfigs = args.vmconfigs;
-            ctx.run_qemu().await?;
+            ctx.build_config_path = args.build_config;
+            ctx.run_qemu(args.qemu_config).await?;
         }
         Commands::Uboot(args) => {
             ctx.vmconfigs = args.vmconfigs;
@@ -112,6 +117,9 @@ async fn main() -> Result<()> {
         }
         Commands::Menuconfig => {
             ctx.run_menuconfig().await?;
+        }
+        Commands::Image(args) => {
+            image::run_image(args).await?;
         }
     }
 

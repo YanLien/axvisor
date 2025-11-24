@@ -70,3 +70,7 @@ pub fn get_running_vm_count() -> usize {
 pub fn add_running_vm_count(count: usize) {
     RUNNING_VM_COUNT.fetch_add(count, Ordering::Release);
 }
+
+pub fn sub_running_vm_count(count: usize) {
+    RUNNING_VM_COUNT.fetch_sub(count, Ordering::Release);
+}

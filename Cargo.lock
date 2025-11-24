@@ -891,14 +891,29 @@ dependencies = [
  "x2apic",
  "x86",
  "x86_64",
- "x86_rtc",
 ]
 
 [[package]]
 name = "axplat-x86-qemu-q35"
 version = "0.1.0"
 dependencies = [
- "axplat-x86-pc",
+ "axconfig-macros",
+ "axcpu",
+ "axplat 0.2.0 (git+https://github.com/arceos-hypervisor/axplat_crates.git?tag=vmm-v0.3.0)",
+ "bitflags 2.10.0",
+ "heapless 0.9.2",
+ "int_ratio",
+ "kspin",
+ "lazyinit",
+ "log",
+ "multiboot",
+ "percpu",
+ "raw-cpuid 11.6.0",
+ "uart_16550",
+ "x2apic",
+ "x86",
+ "x86_64",
+ "x86_rtc",
 ]
 
 [[package]]
@@ -1059,6 +1074,7 @@ dependencies = [
  "axhvc",
  "axruntime",
  "axstd",
+ "axvcpu",
  "axvm",
  "bitflags 2.10.0",
  "byte-unit",
@@ -1184,6 +1200,12 @@ dependencies = [
  "quote",
  "syn 2.0.110",
 ]
+
+[[package]]
+name = "base64"
+version = "0.13.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9e1b586273c5702936fe7b7d6896644d8be71e6314cfe09d3167c95f712589e8"
 
 [[package]]
 name = "base64"
@@ -1332,6 +1354,12 @@ dependencies = [
  "quote",
  "syn 1.0.109",
 ]
+
+[[package]]
+name = "bytemuck"
+version = "1.24.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1fbdf580320f38b612e485521afda1ee26d10cc9884efaaa750d383e13e3c5f4"
 
 [[package]]
 name = "byteorder"
@@ -1557,6 +1585,12 @@ dependencies = [
  "unicode-width 0.2.0",
  "windows-sys 0.61.2",
 ]
+
+[[package]]
+name = "const-default"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0b396d1f76d455557e1218ec8066ae14bba60b4b36ecd55577ba979f5db7ecaa"
 
 [[package]]
 name = "const-str"
@@ -1975,6 +2009,12 @@ dependencies = [
 
 [[package]]
 name = "dma-api"
+version = "0.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "624f4a84cc1031cfceb56780b82570a785f6cfdcee4f34c06c4e8f1fba25c970"
+
+[[package]]
+name = "dma-api"
 version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9d51274fe946b4c27cdada87cc6de09a50c0d9192c0f30ba455b29dae09caa0b"
@@ -2009,6 +2049,7 @@ version = "0.1.0"
 dependencies = [
  "axklib 0.2.0 (git+https://github.com/arceos-hypervisor/axklib)",
  "log",
+ "phytium-mci",
  "rdif-block",
  "rdif-clk",
  "rdrive",
@@ -3768,6 +3809,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "phytium-mci"
+version = "0.1.0"
+source = "git+https://github.com/YanQD/phytium-mci.git?rev=99c9ee5#99c9ee5f66490fbf41370be3b3d7a42cf4406b0c"
+dependencies = [
+ "bare-test-macros",
+ "bitflags 2.10.0",
+ "bytemuck",
+ "dma-api 0.2.2",
+ "lazy_static",
+ "log",
+ "nb",
+ "rlsf",
+ "spin 0.10.0",
+ "tock-registers 0.9.0",
+]
+
+[[package]]
 name = "pie-boot-if"
 version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4479,6 +4537,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "rlsf"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "222fb240c3286247ecdee6fa5341e7cdad0ffdf8e7e401d9937f2d58482a20bf"
+dependencies = [
+ "cfg-if",
+ "const-default",
+ "libc",
+ "svgbobdoc",
+]
+
+[[package]]
 name = "rockchip-pm"
 version = "0.2.0"
 source = "git+https://github.com/drivercraft/rockchip-pm.git#cb2afdf9f3cb5fd05f8e003e65de38e50d480cd5"
@@ -5098,6 +5168,19 @@ name = "subtle"
 version = "2.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "13c2bddecc57b384dee18652358fb23172facb8a2c51ccc10d74c157bdea3292"
+
+[[package]]
+name = "svgbobdoc"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f2c04b93fc15d79b39c63218f15e3fdffaa4c227830686e3b7c5f41244eb3e50"
+dependencies = [
+ "base64 0.13.1",
+ "proc-macro2",
+ "quote",
+ "syn 1.0.109",
+ "unicode-width 0.1.14",
+]
 
 [[package]]
 name = "syn"
@@ -6409,9 +6492,11 @@ dependencies = [
  "colored",
  "jkconfig",
  "ostool",
+ "reqwest 0.12.24",
  "schemars",
  "serde",
  "serde_json",
+ "sha2",
  "tokio",
  "toml 0.9.8",
 ]
