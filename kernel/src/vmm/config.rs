@@ -40,6 +40,8 @@ fn get_guest_prelude_vmconfig() -> anyhow::Result<Vec<AxVMCrateConfig>> {
 }
 
 fn init_guest_vm(config: &AxVMCrateConfig) -> anyhow::Result<()> {
+    debug!("Initializing guest VM `{}`", config.base.name);
+
     Ok(())
 }
 
