@@ -6,7 +6,6 @@ license.workspace = true
 version.workspace = true
 
 [features]
-myfs = ["dep:crate_interface"]
 use-ramdisk = []
 
 [dependencies]
@@ -21,7 +20,6 @@ axns = {workspace = true}
 axsync = {workspace = true}
 cap_access = "0.1"
 cfg-if = "1.0"
-crate_interface = {version = "0.1", optional = true}
 lazyinit = "0.2"
 log = "0.4"
 lwext4_rust = {git = "https://github.com/Josen-B/lwext4_rust.git"}
