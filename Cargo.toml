@@ -32,7 +32,7 @@ timer_list = "0.1"
 toml = "0.9"
 
 # System dependent modules provided by ArceOS.
-axstd = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.1", features = [
+axstd = {git = "https://github.com/arceos-hypervisor/arceos.git", branch = "vfs", features = [
   "alloc-level-1",
   "paging",
   "irq",
@@ -40,23 +40,25 @@ axstd = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.
   "smp", # "page-alloc-64g",
 ]}
 
-axalloc = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.1"}
-axconfig = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.1"}
-axdisplay = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.1"}
-axdriver = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.1"}
-axfs = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.1"}
-axhal = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.1"}
-axipi = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.1"}
-axlog = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.1"}
-axmm = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.1"}
-axnet = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.1"}
-axtask = {git = "https://github.com/arceos-hypervisor/arceos.git", tag = "hv-0.4.1"}
+axalloc = {git = "https://github.com/arceos-hypervisor/arceos.git", branch = "vfs"}
+axconfig = {git = "https://github.com/arceos-hypervisor/arceos.git", branch = "vfs"}
+axdisplay = {git = "https://github.com/arceos-hypervisor/arceos.git", branch = "vfs"}
+axdriver = {git = "https://github.com/arceos-hypervisor/arceos.git", branch = "vfs"}
+axhal = {git = "https://github.com/arceos-hypervisor/arceos.git", branch = "vfs"}
+axipi = {git = "https://github.com/arceos-hypervisor/arceos.git", branch = "vfs"}
+axlog = {git = "https://github.com/arceos-hypervisor/arceos.git", branch = "vfs"}
+axmm = {git = "https://github.com/arceos-hypervisor/arceos.git", branch = "vfs"}
+axnet = {git = "https://github.com/arceos-hypervisor/arceos.git", branch = "vfs"}
+axtask = {git = "https://github.com/arceos-hypervisor/arceos.git", branch = "vfs"}
+axns = {git = "https://github.com/arceos-hypervisor/arceos.git", branch = "vfs"}
+axsync = {git = "https://github.com/arceos-hypervisor/arceos.git", branch = "vfs"}
 
 axplat = {git = "https://github.com/arceos-hypervisor/axplat_crates.git", tag = "vmm-v0.3.0"}
 
 # System dependent modules provided by ArceOS-Hypervisor.
 axaddrspace = "0.1.1"
 axhvc = {git = "https://github.com/arceos-hypervisor/axhvc.git"}
+axfs = {path = "modules/axfs"}
 axruntime = {path = "modules/axruntime"}
 axvcpu = "0.1"
 axvm = {git = "https://github.com/arceos-hypervisor/axvm.git", branch = "next"}
@@ -89,5 +91,6 @@ axvcpu = {git = "https://github.com/arceos-hypervisor/axvcpu.git", branch = "nex
 axvmconfig = {git = "https://github.com/arceos-hypervisor/axvmconfig.git", branch = "next"}
 
 [patch."https://github.com/arceos-hypervisor/arceos"]
+axfs = {path = "modules/axfs"}
 axconfig = {path = "modules/axconfig"}
 axruntime = {path = "modules/axruntime"}
