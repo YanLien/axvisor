@@ -562,7 +562,6 @@ dependencies = [
  "axtask",
  "cap_access",
  "cfg-if",
- "crate_interface",
  "fatfs",
  "lazyinit",
  "log",
