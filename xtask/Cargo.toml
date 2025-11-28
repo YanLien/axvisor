@@ -24,3 +24,6 @@ zerocopy = "=0.8.28"
 axvmconfig = {workspace = true, features = ["std"]}
 tar = "0.4"
 flate2 = "1.0"
+
+# rust 2025-05-19 compat
+zerocopy = "=0.8.28"

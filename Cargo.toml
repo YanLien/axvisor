@@ -1,4 +1,8 @@
 [workspace]
+exclude = [
+  "modules/axvisor_api",
+  "arceos",
+]
 members = [
   "crates/*",
   "modules/*",
@@ -30,6 +34,7 @@ log = "0.4"
 spin = "0.9"
 timer_list = "0.1"
 toml = "0.9"
+vm-allocator = {git = "https://github.com/rust-vmm/vm-allocator.git", ref = "c66cfac", default-features = false}
 
 # System dependent modules provided by ArceOS.
 # FIXME: pin to a specific tag!
@@ -39,6 +44,8 @@ axstd = {git = "https://github.com/arceos-org/arceos.git", tag = "dev-251202", f
   "irq",
   "multitask",
   "task-ext",
+  "alloc",
+  "myplat",
   "smp", # "page-alloc-64g",
 ]}
 
@@ -58,12 +65,12 @@ axcpu = {git = "https://github.com/arceos-org/axcpu.git", tag = "dev-v03"}
 axplat = {git = "https://github.com/arceos-org/axplat_crates.git", tag = "dev-v03"}
 
 # System dependent modules provided by ArceOS-Hypervisor.
-axaddrspace = "0.1.1"
+axaddrspace = "0.2"
 axhvc = {git = "https://github.com/arceos-hypervisor/axhvc.git"}
 axklib = {git = "https://github.com/arceos-hypervisor/axklib.git"}
 axruntime = {path = "modules/axruntime"}
 axvcpu = "0.1"
-axvm = {git = "https://github.com/arceos-hypervisor/axvm.git", branch = "next"}
+axvm = {path = "modules/axvm"}
 
 # System independent crates provided by ArceOS, these crates could be imported by remote url. 
 axerrno = "0.2"
@@ -81,17 +88,31 @@ vm-fdt = {git = "https://github.com/bullhh/vm-fdt.git", default-features = false
 
 axdevice = {git = "https://github.com/arceos-hypervisor/axdevice.git"}
 axdevice_base = "0.1"
+axplat-aarch64-dyn = {path = "platform/axplat-aarch64-dyn", features = ["irq", "smp", "hv"]}
 axvisor_api = "0.1"
+axvm-types = {path = "modules/axvm-types"}
 driver = {path = "modules/driver"}
 
 # platform
 axplat-x86-qemu-q35 = {path = "platform/x86-qemu-q35"}
-axvmconfig = {git = "https://github.com/arceos-hypervisor/axvmconfig.git", branch = "next"}
+axvmconfig = {version = "0.1", default-features = false}
 
 [patch.crates-io]
-axvcpu = {git = "https://github.com/arceos-hypervisor/axvcpu.git", branch = "next"}
-axvmconfig = {git = "https://github.com/arceos-hypervisor/axvmconfig.git", branch = "next"}
+arm_vcpu = {path = "modules/arm_vcpu"}
+arm_vgic = {path = "modules/arm_vgic"}
+axaddrspace = {path = "modules/axaddrspace"}
+axdevice_base = {path = "modules/axdevice_base"}
+axvcpu = {path = "modules/axvcpu"}
+axvisor_api = {path = "modules/axvisor_api"}
+axvmconfig = {path = "modules/axvmconfig"}
+x86_vcpu = {path = "modules/x86_vcpu"}
+x86_vlapic = {path = "modules/x86_vlapic"}
 
-[patch."https://github.com/arceos-org/arceos"]
+[patch."https://github.com/arceos-hypervisor/axdevice".axdevice]
+path = "modules/axdevice"
+
+[patch."https://github.com/arceos-hypervisor/arceos"]
+# axalloc = {path = "modules/axalloc"}
 axconfig = {path = "modules/axconfig"}
 axruntime = {path = "modules/axruntime"}
+
