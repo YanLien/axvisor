@@ -49,7 +49,7 @@ pub fn build_vmconfig(cfg: AxVMCrateConfig) -> anyhow::Result<AxVMConfig> {
 
     for region in &cfg.kernel.memory_regions {
         let mem_region = match region.map_type {
-            axvmconfig::VmMemMappingType::MapAlloc => MemoryKind::Fixed {
+            axvmconfig::VmMemMappingType::MapAlloc => MemoryKind::Vmem {
                 gpa: region.gpa.into(),
                 size: region.size,
             },
