@@ -15,20 +15,7 @@ use std::os::arceos::{
     modules::axtask,
 };
 
-use axerrno::{AxResult, ax_err_type};
-
-use crate::{
-    hal::{AxVCpuHalImpl, AxVMHalImpl},
-    task::AsVCpuTask,
-};
-pub use timer::init_percpu as init_timer_percpu;
-
-/// The instantiated VM type.
-pub type VM = axvm::AxVM<AxVMHalImpl, AxVCpuHalImpl>;
-/// The instantiated VM ref type (by `Arc`).
-pub type VMRef = axvm::AxVMRef<AxVMHalImpl, AxVCpuHalImpl>;
-/// The instantiated VCpu ref type (by `Arc`).
-pub type VCpuRef = axvm::AxVCpuRef<AxVCpuHalImpl>;
+use axvm::AxVMConfig;
 
 static VMM: AxWaitQueueHandle = AxWaitQueueHandle::new();
 

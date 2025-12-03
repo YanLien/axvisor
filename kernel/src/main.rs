@@ -14,7 +14,7 @@ extern crate driver;
 
 mod logo;
 // mod shell;
-// mod task;
+mod task;
 mod vmm;
 
 #[unsafe(no_mangle)]
