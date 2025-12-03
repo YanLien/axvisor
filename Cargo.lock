@@ -2320,7 +2320,7 @@ dependencies = [
 [[package]]
 name = "fdt-edit"
 version = "0.1.0"
-source = "git+https://github.com/drivercraft/fdt-parser.git#cb37eedd7a435bb4f2dbf95c57e908cb3b594a72"
+source = "git+https://github.com/drivercraft/fdt-parser.git#9e060180c90dbe6c89121328cbccc1a2d36cb325"
 dependencies = [
  "fdt-raw",
 ]
@@ -2345,7 +2345,7 @@ dependencies = [
 [[package]]
 name = "fdt-raw"
 version = "0.1.0"
-source = "git+https://github.com/drivercraft/fdt-parser.git#cb37eedd7a435bb4f2dbf95c57e908cb3b594a72"
+source = "git+https://github.com/drivercraft/fdt-parser.git#9e060180c90dbe6c89121328cbccc1a2d36cb325"
 dependencies = [
  "heapless 0.9.2",
  "log",
