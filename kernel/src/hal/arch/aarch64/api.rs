@@ -4,7 +4,9 @@ mod arch_api_impl {
 
     use axvisor_api::memory::virt_to_phys;
 
+
     extern fn hardware_inject_virtual_interrupt(irq: axvisor_api::vmm::InterruptVector) {
+        #[cfg(target_arch == "aarch64")]
         crate::hal::arch::inject_interrupt(irq as _);
     }
 

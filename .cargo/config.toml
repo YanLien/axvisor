@@ -18,3 +18,9 @@ rustflags = [
 [alias]
 xtask = "run --package xtask --"
 
+[target.riscv64gc-unknown-none-elf]
+rustflags = [
+    "-Clink-args=-no-pie",
+    "-Clink-args=-znostart-stop-gc",
+    "-Clink-args=-Tlink.x",
+]

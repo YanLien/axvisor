@@ -18,7 +18,10 @@ use axaddrspace::GuestPhysAddr;
 use axtask::{AxTaskRef, TaskInner, WaitQueue};
 use axvcpu::{AxVCpuExitReason, VCpuState};
 
-use crate::{hal::arch::inject_interrupt, task::VCpuTask};
+#[cfg(target_arch = "aarch64")]
+use crate::hal::arch::inject_interrupt;
+
+use crate::task::VCpuTask;
 use crate::{
     task::AsVCpuTask,
     vmm::{VCpuRef, VMRef, sub_running_vm_count},
@@ -528,6 +531,7 @@ fn vcpu_run() {
                     }
 
                     if target_cpu == vcpu_id as u64 || send_to_self {
+                        #[cfg(target_arch = "aarch64")]
                         inject_interrupt(vector as _);
                     } else {
                         vm.inject_interrupt_to_vcpu(

@@ -5,6 +5,7 @@ use axvm::VMMemoryRegion;
 use axvm::config::AxVMCrateConfig;
 use byte_unit::Byte;
 
+#[cfg(any(target_arch = "aarch64", feature = "fs"))]
 use crate::hal::CacheOp;
 use crate::vmm::VMRef;
 use crate::vmm::config::{config, get_vm_dtb_arc};
@@ -160,6 +161,7 @@ pub fn load_vm_image_from_memory(
             );
         }
 
+        #[cfg(target_arch = "aarch64")]
         crate::hal::arch::cache::dcache_range(
             CacheOp::Clean,
             (region.as_ptr() as usize).into(),
@@ -272,6 +274,7 @@ pub mod fs {
                 )
             })?;
 
+            #[cfg(target_arch = "aarch64")]
             crate::hal::arch::cache::dcache_range(
                 CacheOp::Clean,
                 (buffer.as_ptr() as usize).into(),

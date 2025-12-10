@@ -246,6 +246,8 @@ fn main() -> anyhow::Result<()> {
         "aarch64-generic".to_string()
     } else if arch == "x86_64" {
         "x86-qemu-q35".to_string()
+    } else if arch == "riscv64" {
+        "riscv64-qemu-virt".to_string()
     } else {
         "dummy".to_string()
     };
@@ -288,5 +290,6 @@ fn main() -> anyhow::Result<()> {
             writeln!(output_file, "}}\n")?;
         }
     }
+
     Ok(())
 }

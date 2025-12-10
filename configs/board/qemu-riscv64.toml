@@ -1,0 +1,9 @@
+cargo_args = []
+features = [
+    "axstd/bus-mmio",
+    "axstd/myplat"
+]
+log = "Info"
+target = "riscv64gc-unknown-none-elf"
+to_bin = true
+vm_configs = []

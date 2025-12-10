@@ -12,10 +12,7 @@ impl Context {
         } else if build_config.target.contains("x86_64") {
             Arch::X86_64
         } else {
-            return Err(anyhow::anyhow!(
-                "Unsupported target architecture: {}",
-                build_config.target
-            ));
+            Arch::Riscv64
         };
 
         let config_path = if let Some(path) = config_path {
@@ -64,4 +61,5 @@ impl Context {
 enum Arch {
     Aarch64,
     X86_64,
+    Riscv64
 }
