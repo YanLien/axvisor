@@ -463,7 +463,7 @@ fn vcpu_run() {
                 AxVCpuExitReason::FailEntry {
                     hardware_entry_failure_reason,
                 } => {
-                    warn!(
+                    info!(
                         "VM[{vm_id}] VCpu[{vcpu_id}] run failed with exit code {hardware_entry_failure_reason}"
                     );
                 }
@@ -480,7 +480,7 @@ fn vcpu_run() {
                 }
                 AxVCpuExitReason::Nothing => {}
                 AxVCpuExitReason::CpuDown { _state } => {
-                    warn!("VM[{vm_id}] run VCpu[{vcpu_id}] CpuDown state {_state:#x}");
+                    info!("VM[{vm_id}] run VCpu[{vcpu_id}] CpuDown state {_state:#x}");
                     wait(vm_id)
                 }
                 AxVCpuExitReason::CpuUp {
@@ -542,7 +542,7 @@ fn vcpu_run() {
                     }
                 }
                 e => {
-                    warn!("VM[{vm_id}] run VCpu[{vcpu_id}] unhandled vmexit: {e:?}");
+                    info!("VM[{vm_id}] run VCpu[{vcpu_id}] unhandled vmexit: {e:?}");
                 }
             },
             Err(err) => {

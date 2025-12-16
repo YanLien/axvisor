@@ -37,37 +37,52 @@ toml = "0.9"
 
 # System dependent modules provided by ArceOS.
 # FIXME: pin to a specific tag!
-axstd = {git = "https://github.com/arceos-org/arceos.git", tag = "dev-251202", features = [
-  "alloc-level-1",
+axstd = { path = "/home/yanlien/Program/riscv64/arceos/ulib/axstd", features = [
+  # "alloc-level-1",
+  "alloc",
   "paging",
   "irq",
   "multitask",
   "task-ext",
-  "smp", # "page-alloc-64g",
+  "smp", 
+  "page-alloc-64g",
 ]}
 
-axalloc = {git = "https://github.com/arceos-org/arceos.git", tag = "dev-251202"}
-axconfig = {git = "https://github.com/arceos-org/arceos.git", tag = "dev-251202"}
-axdisplay = {git = "https://github.com/arceos-org/arceos.git", tag = "dev-251202"}
-axdriver = {git = "https://github.com/arceos-org/arceos.git", tag = "dev-251202"}
-axfs = {git = "https://github.com/arceos-org/arceos.git", tag = "dev-251202"}
-axhal = {git = "https://github.com/arceos-org/arceos.git", tag = "dev-251202"}
-axipi = {git = "https://github.com/arceos-org/arceos.git", tag = "dev-251202"}
-axlog = {git = "https://github.com/arceos-org/arceos.git", tag = "dev-251202"}
-axmm = {git = "https://github.com/arceos-org/arceos.git", tag = "dev-251202"}
-axnet = {git = "https://github.com/arceos-org/arceos.git", tag = "dev-251202"}
-axtask = {git = "https://github.com/arceos-org/arceos.git", tag = "dev-251202"}
+# axalloc = {git = "https://github.com/arceos-org/arceos.git", tag = "dev-251202"}
+# axconfig = {git = "https://github.com/arceos-org/arceos.git", tag = "dev-251202"}
+# axdisplay = {git = "https://github.com/arceos-org/arceos.git", tag = "dev-251202"}
+# axdriver = {git = "https://github.com/arceos-org/arceos.git", tag = "dev-251202"}
+# axfs = {git = "https://github.com/arceos-org/arceos.git", tag = "dev-251202"}
+# axhal = {git = "https://github.com/arceos-org/arceos.git", tag = "dev-251202"}
+# axipi = {git = "https://github.com/arceos-org/arceos.git", tag = "dev-251202"}
+# axlog = {git = "https://github.com/arceos-org/arceos.git", tag = "dev-251202"}
+# axmm = {git = "https://github.com/arceos-org/arceos.git", tag = "dev-251202"}
+# axnet = {git = "https://github.com/arceos-org/arceos.git", tag = "dev-251202"}
+# axtask = {git = "https://github.com/arceos-org/arceos.git", tag = "dev-251202"}
+
+axalloc = { path = "/home/yanlien/Program/riscv64/arceos/modules/axalloc" }
+axconfig = { path = "/home/yanlien/Program/riscv64/arceos/modules/axconfig" }
+axdisplay = { path = "/home/yanlien/Program/riscv64/arceos/modules/axdisplay" }
+axdriver = { path = "/home/yanlien/Program/riscv64/arceos/modules/axdriver" }
+axfs = { path = "/home/yanlien/Program/riscv64/arceos/modules/axfs" }
+axhal = { path = "/home/yanlien/Program/riscv64/arceos/modules/axhal" }
+axipi = { path = "/home/yanlien/Program/riscv64/arceos/modules/axipi" }
+axlog = { path = "/home/yanlien/Program/riscv64/arceos/modules/axlog" }
+axmm = { path = "/home/yanlien/Program/riscv64/arceos/modules/axmm" }
+axnet = { path = "/home/yanlien/Program/riscv64/arceos/modules/axnet" }
+axtask = { path = "/home/yanlien/Program/riscv64/arceos/modules/axtask" }
 
 axcpu = {git = "https://github.com/arceos-org/axcpu.git", tag = "dev-v03"}
 axplat = {git = "https://github.com/arceos-org/axplat_crates.git", tag = "dev-v03"}
 
 # System dependent modules provided by ArceOS-Hypervisor.
-axaddrspace = "0.1.1"
+# axaddrspace = "0.1"
+axaddrspace = {path = "/home/yanlien/Program/riscv64/axvisor/crates/axaddrspace"}
 axhvc = {git = "https://github.com/arceos-hypervisor/axhvc.git"}
 axklib = {git = "https://github.com/arceos-hypervisor/axklib.git"}
 axruntime = {path = "modules/axruntime"}
 axvcpu = "0.1"
-axvm = {git = "https://github.com/arceos-hypervisor/axvm.git", branch = "next"}
+axvm = { path = "crates/axvm" }
 
 # System independent crates provided by ArceOS, these crates could be imported by remote url. 
 axerrno = "0.2"
@@ -91,11 +106,12 @@ driver = {path = "modules/driver"}
 # platform
 axplat-x86-qemu-q35 = {path = "platform/x86-qemu-q35"}
 axplat-riscv64-qemu-virt = {path = "platform/riscv64-qemu-virt"}
-axvmconfig = {git = "https://github.com/arceos-hypervisor/axvmconfig.git", branch = "next"}
+axvmconfig = { path = "/home/yanlien/Program/riscv64/axvisor/crates/axvmconfig" }
 
 [patch.crates-io]
-axvcpu = {git = "https://github.com/arceos-hypervisor/axvcpu.git", branch = "next"}
-axvmconfig = {git = "https://github.com/arceos-hypervisor/axvmconfig.git", branch = "next"}
+axvcpu = { path = "/home/yanlien/Program/riscv64/axvisor/crates/axvcpu" }
+axvmconfig = { path = "/home/yanlien/Program/riscv64/axvisor/crates/axvmconfig" }
+axaddrspace = {path = "/home/yanlien/Program/riscv64/axvisor/crates/axaddrspace"}
 
 [patch."https://github.com/arceos-org/arceos"]
 axconfig = {path = "modules/axconfig"}

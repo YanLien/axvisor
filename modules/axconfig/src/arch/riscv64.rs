@@ -51,7 +51,7 @@ pub mod devices {
 #[doc = ""]
 pub mod plat {
     #[doc = " Number of CPUs."]
-    pub const CPU_NUM: usize = 16;
+    pub const CPU_NUM: usize = 1;
     #[doc = " Platform family (deprecated)."]
     pub const FAMILY: &str = "";
     #[doc = " Kernel address space base."]
@@ -68,7 +68,7 @@ pub mod plat {
     #[doc = " No need."]
     pub const PHYS_MEMORY_BASE: usize = 0x8000_0000;
     #[doc = " No need."]
-    pub const PHYS_MEMORY_SIZE: usize = 0x800_0000;
+    pub const PHYS_MEMORY_SIZE: usize = 0x1_0000_0000;
     #[doc = " No need."]
     pub const PHYS_VIRT_OFFSET: usize = 0xffff_ffc0_0000_0000;
 }

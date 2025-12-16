@@ -159,12 +159,12 @@ pub fn init_guest_vm(raw_cfg: &str) -> AxResult<usize> {
     let vm_create_config =
         AxVMCrateConfig::from_toml(raw_cfg).expect("Failed to resolve VM config");
 
-    if let Some(linux) = super::images::get_image_header(&vm_create_config) {
-        debug!(
-            "VM[{}] Linux header: {:#x?}",
-            vm_create_config.base.id, linux
-        );
-    }
+    // if let Some(linux) = super::images::get_image_header(&vm_create_config) {
+    //     debug!(
+    //         "VM[{}] Linux header: {:#x?}",
+    //         vm_create_config.base.id, linux
+    //     );
+    // }
 
     #[cfg(target_arch = "aarch64")]
     let mut vm_config = AxVMConfig::from(vm_create_config.clone());
@@ -211,7 +211,16 @@ pub fn init_guest_vm(raw_cfg: &str) -> AxResult<usize> {
 
 fn config_guest_address(vm: &VM, main_memory: &VMMemoryRegion) {
     const MB: usize = 1024 * 1024;
+    info!(
+        "config_guest_address: main_memory.gpa={:#x}, is_identical={}",
+        main_memory.gpa,
+        main_memory.is_identical()
+    );
     vm.with_config(|config| {
+        info!(
+            "Before adjustment: bsp_entry={:#x}, kernel_load_gpa={:#x}",
+            config.cpu_config.bsp_entry, config.image_config.kernel_load_gpa
+        );
         if main_memory.is_identical() {
             debug!(
                 "Adjusting kernel load address from {:#x} to {:#x}",
@@ -223,9 +232,16 @@ fn config_guest_address(vm: &VM, main_memory: &VMMemoryRegion) {
             }
 
             config.image_config.kernel_load_gpa = kernel_addr;
-            config.cpu_config.bsp_entry = kernel_addr;
-            config.cpu_config.ap_entry = kernel_addr;
+            #[cfg(target_arch = "aarch64")]
+            {
+                config.cpu_config.bsp_entry = kernel_addr;
+                config.cpu_config.ap_entry = kernel_addr;
+            }
         }
+        info!(
+            "After adjustment: bsp_entry={:#x}, kernel_load_gpa={:#x}",
+            config.cpu_config.bsp_entry, config.image_config.kernel_load_gpa
+        );
     });
 }
 
@@ -243,6 +259,7 @@ fn vm_alloc_memorys(vm_create_config: &AxVMCrateConfig, vm: &VM) {
                 .expect("Failed to allocate memory region for VM");
             }
             VmMemMappingType::MapIdentical => {
+                info!("VM[{}] map same region: {:#x?}", vm.id(), memory);
                 vm.alloc_memory_region(Layout::from_size_align(memory.size, ALIGN).unwrap(), None)
                     .expect("Failed to allocate memory region for VM");
             }

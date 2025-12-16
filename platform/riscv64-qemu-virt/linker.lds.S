@@ -52,42 +52,6 @@ SECTIONS
         _etbss = .;
     }
 
-    .linkme_IRQ : {
-        __start_linkme_IRQ = .;
-        KEEP(*(linkme_IRQ))
-        __stop_linkme_IRQ = .;
-    }
-    .linkm2_IRQ : {
-        __start_linkm2_IRQ = .;
-        KEEP(*(linkm2_IRQ))
-        __stop_linkm2_IRQ = .;
-    }
-    .linkme_PAGE_FAULT : {
-        __start_linkme_PAGE_FAULT = .;
-        KEEP(*(linkme_PAGE_FAULT))
-        __stop_linkme_PAGE_FAULT = .;
-    }
-    .linkm2_PAGE_FAULT : {
-        __start_linkm2_PAGE_FAULT = .;
-        KEEP(*(linkm2_PAGE_FAULT))
-        __stop_linkm2_PAGE_FAULT = .;
-    }
-    .linkme_SYSCALL : {
-        __start_linkme_SYSCALL = .;
-        KEEP(*(linkme_SYSCALL))
-        __stop_linkme_SYSCALL = .;
-    }
-    .linkm2_SYSCALL : {
-        __start_linkm2_SYSCALL = .;
-        KEEP(*(linkm2_SYSCALL))
-        __stop_linkm2_SYSCALL = .;
-    }
-    .scope_local : {
-        __start_scope_local = .;
-        KEEP(*(scope_local))
-        __stop_scope_local = .;
-    }
-
     . = ALIGN(4K);
     _percpu_start = .;
     _percpu_end = _percpu_start + SIZEOF(.percpu);
@@ -122,3 +86,14 @@ SECTIONS
         *(.comment) *(.gnu*) *(.note*) *(.eh_frame*)
     }
 }
+
+SECTIONS {
+    linkme_IRQ : { *(linkme_IRQ) }
+    linkm2_IRQ : { *(linkm2_IRQ) }
+    linkme_PAGE_FAULT : { *(linkme_PAGE_FAULT) }
+    linkm2_PAGE_FAULT : { *(linkm2_PAGE_FAULT) }
+    linkme_SYSCALL : { *(linkme_SYSCALL) }
+    linkm2_SYSCALL : { *(linkm2_SYSCALL) }
+    scope_local : { *(scope_local) }
+}
+INSERT AFTER .tbss;

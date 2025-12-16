@@ -3,7 +3,7 @@ args = [
   "-machine",
   "virt",
   "-smp",
-  "4",
+  "1",
   "-device",
   "virtio-blk-device,drive=disk0",
   "-drive",
@@ -12,7 +12,6 @@ args = [
   "8g",
 ]
 fail_regex = []
-success_regex = [
-]
+success_regex = []
 to_bin = true
 uefi = false
