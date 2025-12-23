@@ -237,6 +237,9 @@ fn config_guest_address(vm: &VM, main_memory: &VMMemoryRegion) {
                 config.cpu_config.bsp_entry = kernel_addr;
                 config.cpu_config.ap_entry = kernel_addr;
             }
+        } else {
+            config.cpu_config.bsp_entry = main_memory.gpa;
+            config.image_config.kernel_load_gpa = main_memory.gpa;
         }
         info!(
             "After adjustment: bsp_entry={:#x}, kernel_load_gpa={:#x}",

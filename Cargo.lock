@@ -417,7 +417,7 @@ dependencies = [
  "page_table_entry",
  "page_table_multiarch",
  "percpu",
- "riscv",
+ "riscv 0.14.0",
  "static_assertions",
  "tock-registers 0.9.0",
  "x86",
@@ -890,7 +890,7 @@ dependencies = [
  "kspin",
  "lazyinit",
  "log",
- "riscv",
+ "riscv 0.14.0",
  "riscv_goldfish",
  "riscv_plic",
  "sbi-rt",
@@ -908,7 +908,7 @@ dependencies = [
  "kspin",
  "lazyinit",
  "log",
- "riscv",
+ "riscv 0.14.0",
  "riscv_plic",
  "sbi-rt",
  "uart_16550",
@@ -3820,7 +3820,7 @@ dependencies = [
  "log",
  "memory_addr",
  "page_table_entry",
- "riscv",
+ "riscv 0.14.0",
  "x86",
 ]
 
@@ -4562,8 +4562,19 @@ dependencies = [
  "critical-section",
  "embedded-hal",
  "paste",
- "riscv-macros",
+ "riscv-macros 0.2.0",
  "riscv-pac",
+]
+
+[[package]]
+name = "riscv"
+version = "0.15.0"
+dependencies = [
+ "critical-section",
+ "embedded-hal",
+ "paste",
+ "riscv-macros 0.3.0",
+ "riscv-types",
 ]
 
 [[package]]
@@ -4575,14 +4586,12 @@ checksum = "68b59d645e392e041ad18f5e529ed13242d8405c66bb192f59703ea2137017d0"
 [[package]]
 name = "riscv-h"
 version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cffa652689d01c5f7033abe105e69f4d57ac85bf7e17da688bab10e4b9d3a2d8"
 dependencies = [
  "bare-metal",
  "bit_field",
  "bitflags 2.10.0",
  "log",
- "riscv",
+ "riscv 0.14.0",
 ]
 
 [[package]]
@@ -4597,10 +4606,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "riscv-macros"
+version = "0.3.0"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.111",
+]
+
+[[package]]
 name = "riscv-pac"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8188909339ccc0c68cfb5a04648313f09621e8b87dc03095454f1a11f6c5d436"
+
+[[package]]
+name = "riscv-types"
+version = "0.1.0"
 
 [[package]]
 name = "riscv_goldfish"
@@ -4633,7 +4655,7 @@ dependencies = [
  "memoffset",
  "memory_addr",
  "page_table_entry",
- "riscv",
+ "riscv 0.15.0",
  "riscv-decode",
  "riscv-h",
  "rustsbi",

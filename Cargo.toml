@@ -9,6 +9,7 @@ members = [
 
 exclude = [
   "crates/axvisor_api",
+  "crates/riscv"
 ]
 resolver = "3"
 
